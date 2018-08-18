@@ -1,0 +1,28 @@
+{
+  "name": "docker-gitlab-sample-app",
+  "version": "0.0.1",
+  "description": "docker gitlab sample app for demo",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/comefigo/docker-gitlab-sample-app.git"
+  },
+  "keywords": [
+    "gitlab",
+    "gitlab-ci",
+    "node",
+    "demo"
+  ],
+  "author": "comefigo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/comefigo/docker-gitlab-sample-app/issues"
+  },
+  "homepage": "https://github.com/comefigo/docker-gitlab-sample-app#readme",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}
