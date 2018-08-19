@@ -8,5 +8,7 @@ stages:
 
 test:
   stage: build
+  tags:
+    - ci
   script:
     - docker info
