@@ -1,0 +1,12 @@
+image: docker
+
+services:
+  - docker:dind
+
+stages:
+  - build
+
+test:
+  stage: build
+  script:
+    - docker info
