@@ -1,19 +1,8 @@
 ---
-# デプロイ先のホストを動的に追加する
-- name: add deploy target host
+- name: deploy app
   hosts: localhost
   connection: local
   gather_facts: False
-  tasks:
-    - debug: var=all
-
-    - add_host:
-        name: "{{ item }}"
-        group: "my_hosts"
-      with_items: "{{ all.my_hosts }}"
-
-- name: deploy app
-  hosts: my_hosts
   tasks:
     - name: remove exist app container
       docker_container:
