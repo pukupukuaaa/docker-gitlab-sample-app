@@ -1,10 +1,14 @@
 ---
 # デプロイ先のホストを動的に追加する
 - name: add deploy target host
-  add_host:
-    name: "{{ item }}"
-    group: "my_hosts"
-  with_items: "{{ all.my_hosts }}"
+  hosts: localhost
+  connection: local
+  gather_facts: False
+  tasks:
+    - add_host:
+        name: "{{ item }}"
+        group: "my_hosts"
+      with_items: "{{ all.my_hosts }}"
 
 - name: deploy app
   hosts: my_hosts
