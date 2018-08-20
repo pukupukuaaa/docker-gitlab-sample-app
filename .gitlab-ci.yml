@@ -19,16 +19,17 @@ deploy_dev:
   script:
     - env
     - ansible --version
-    - 'cd ./ansible && ansible-playbook -i hosts deploy.yml --extra-vars="{\"all\": { \"app_version\": ${APP_VERSION}, \"docker_register_url\": ${ENV_DOCKER_REGISTRY_HOST}, \"docker_register_port\": ${ENV_DOCKER_REGISTRY_PORT}, \"app_port\": 3000 }}"'
+    - 'cd ./ansible && ansible-playbook -i hosts deploy.yml --extra-vars="{\"all\": { \"app_name\": $CI_PROJECT_NAME-$CI_BUILD_REF_NAME, \"app_version\": $APP_VERSION, \"docker_register_url\": $ENV_DOCKER_REGISTRY_HOST, \"docker_register_port\": ENV_DOCKER_REGISTRY_PORT, \"app_port\": 3001 }}"'
+  only:
+    - dev
+
+deploy_production:
+  stage: deploy
+  tags:
+    - ci
+  script:
+    - env
+    - ansible --version
+    - 'cd ./ansible && ansible-playbook -i hosts deploy.yml --extra-vars="{\"all\": { \"app_name\": $CI_PROJECT_NAME-$CI_BUILD_REF_NAME, \"app_version\": $APP_VERSION, \"docker_register_url\": $ENV_DOCKER_REGISTRY_HOST, \"docker_register_port\": $ENV_DOCKER_REGISTRY_PORT, \"app_port\": 3000 }}"'
   only:
     - master
-
-# deploy_production:
-#   stage: deploy
-#   tags:
-#     - ci
-#   script:
-#     - env
-#     - ansible --version
-#   only:
-#     - master

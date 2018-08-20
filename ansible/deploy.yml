@@ -8,13 +8,13 @@
 
     - name: remove exist app container
       docker_container:
-        name: myapp
+        name: "{{ all.app_name }}"
         state: absent
       become: yes
 
     - name: launch new app container
       docker_container:
-        name: myapp
+        name: "{{ all.app_name }}"
         image: "{{ all.docker_register_url }}:{{ all.docker_register_port }}/root/myapp:{{ all.app_version }}"
         state: started
         restart_policy: always
