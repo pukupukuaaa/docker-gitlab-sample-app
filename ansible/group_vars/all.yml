@@ -1,0 +1,7 @@
+all:
+  my_hosts:
+    - "127.0.0.1"
+  app_port: 3000
+  app_version: "0.0.1"
+  docker_register_url: "gitlab-registry"
+  docker_register_port: 5000

@@ -1,0 +1,27 @@
+---
+# デプロイ先のホストを動的に追加する
+- name: add deploy target host
+  add_host:
+    name: "{{ item }}"
+    group: "my_hosts"
+  with_items: "{{ all.my_hosts }}"
+
+- name: deploy app
+  hosts: my_hosts
+  tasks:
+    - name: remove exist app container
+      docker_container:
+        name: myapp
+        state: absent
+
+    - name: launch new app container
+      docker_container:
+        name: myapp
+        image: "{{ all.docker_register_url }}:{{ all.docker_register_port }}/root/myapp:{{ all.app_version }}"
+        state: started
+        restart_policy: always
+        env:
+          PORT: "{{ all.app_port }}"
+          VER: "{{ all.app_version }}"
+        ports:
+          - "{{ all.app_port }}:{{ all.app_port }}"

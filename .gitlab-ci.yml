@@ -9,13 +9,26 @@ build:
   script:
     - sudo docker info
     - sudo docker build -t myapp:$APP_VERSION ./
-    - sudo docker tag myapp:$APP_VERSION gitlab-registry:5000/root/myapp:$APP_VERSION
-    - sudo docker push gitlab-registry:5000/root/myapp:$APP_VERSION
+    - sudo docker tag myapp:$APP_VERSION $ENV_DOCKER_REGISTRY_HOST:$ENV_DOCKER_REGISTRY_PORT/root/myapp:$APP_VERSION
+    - sudo docker push $ENV_DOCKER_REGISTRY_HOST:$ENV_DOCKER_REGISTRY_PORT/root/myapp:$APP_VERSION
 
-deploy:
+deploy_dev:
   stage: deploy
   tags:
     - ci
   script:
     - env
     - ansible --version
+    - cd ./ansible && ansible-playbook -i hosts deploy.yml --extra-vars '{ "all": { "app_version": "$APP_VERSION", "docker_register_url": "$ENV_DOCKER_REGISTRY_HOST", "docker_register_port": "$ENV_DOCKER_REGISTRY_PORT", "app_port": 3000 } }'
+  only:
+    - master
+
+# deploy_production:
+#   stage: deploy
+#   tags:
+#     - ci
+#   script:
+#     - env
+#     - ansible --version
+#   only:
+#     - master
