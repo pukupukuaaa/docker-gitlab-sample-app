@@ -21,6 +21,7 @@
         env:
           PORT: "{{ all.app_port }}"
           VER: "{{ all.app_version }}"
+          APP_NAME: "{{ all.app_name }}"
         ports:
           - "{{ all.app_port }}:{{ all.app_port }}"
       become: yes
