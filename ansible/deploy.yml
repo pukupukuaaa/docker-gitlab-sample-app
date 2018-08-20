@@ -4,6 +4,8 @@
   connection: local
   gather_facts: False
   tasks:
+    - debug: var=all
+
     - name: remove exist app container
       docker_container:
         name: myapp
