@@ -8,6 +8,7 @@
       docker_container:
         name: myapp
         state: absent
+      become: yes
 
     - name: launch new app container
       docker_container:
@@ -20,3 +21,4 @@
           VER: "{{ all.app_version }}"
         ports:
           - "{{ all.app_port }}:{{ all.app_port }}"
+      become: yes
