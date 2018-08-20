@@ -19,7 +19,7 @@ deploy_dev:
   script:
     - env
     - ansible --version
-    - cd ./ansible && ansible-playbook -i hosts deploy.yml --extra-vars '{ "all": { "app_version": "$APP_VERSION", "docker_register_url": "$ENV_DOCKER_REGISTRY_HOST", "docker_register_port": "$ENV_DOCKER_REGISTRY_PORT", "app_port": 3000 } }'
+    - "cd ./ansible && ansible-playbook -i hosts deploy.yml --extra-vars '{ \"all\": { \"app_version\": \"$APP_VERSION\", \"docker_register_url\": \"$ENV_DOCKER_REGISTRY_HOST\", \"docker_register_port\": \"$ENV_DOCKER_REGISTRY_PORT\", \"app_port\": 3000 } }'"
   only:
     - master
 
