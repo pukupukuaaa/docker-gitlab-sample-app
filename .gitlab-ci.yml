@@ -11,4 +11,4 @@ test:
   tags:
     - ci
   script:
-    - docker info
+    - sudo docker info
