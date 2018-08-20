@@ -1,8 +1,3 @@
-image: docker
-
-services:
-  - docker:dind
-
 stages:
   - build
 
@@ -12,3 +7,6 @@ test:
     - ci
   script:
     - sudo docker info
+    - sudo docker build -t myapp ./
+    - sudo docker tag myapp gitlab-registry:5000/root/myapp
+    - sudo docker push gitlab-registry:5000/root/myapp
