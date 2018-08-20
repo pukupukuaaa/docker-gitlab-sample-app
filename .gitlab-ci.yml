@@ -1,12 +1,21 @@
 stages:
   - build
+  - deploy
 
-test:
+build:
   stage: build
   tags:
     - ci
   script:
     - sudo docker info
-    - sudo docker build -t myapp ./
-    - sudo docker tag myapp gitlab-registry:5000/root/myapp
-    - sudo docker push gitlab-registry:5000/root/myapp
+    - sudo docker build -t myapp:$APP_VERSION ./
+    - sudo docker tag myapp:$APP_VERSION gitlab-registry:5000/root/myapp:$APP_VERSION
+    - sudo docker push gitlab-registry:5000/root/myapp:$APP_VERSION
+
+deploy:
+  stage: deploy
+  tags:
+    - ci
+  script:
+    - env
+    - ansible --version
