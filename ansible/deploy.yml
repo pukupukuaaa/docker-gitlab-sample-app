@@ -5,6 +5,8 @@
   connection: local
   gather_facts: False
   tasks:
+    - debug: var=all
+
     - add_host:
         name: "{{ item }}"
         group: "my_hosts"
