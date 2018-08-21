@@ -1,4 +1,6 @@
 ---
+- debug: var=ansible_user
+
 - name: install docker
   yum:
     name: docker
@@ -12,8 +14,6 @@
     enabled: yes
     use: service
   become: yes
-
-- debug: var=ansible_user
 
 - name: "add work user into Docker group"
   user:
