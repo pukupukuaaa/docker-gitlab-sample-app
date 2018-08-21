@@ -1,0 +1,32 @@
+---
+- name: install docker
+  yum:
+    name: docker
+    state: present
+  become: yes
+
+- name: start docker service
+  service:
+    name: docker
+    state: started
+    enabled: yes
+    use: service
+  become: yes
+
+- debug: var=ansible_user
+
+- name: "add work user into Docker group"
+  user:
+    name: "{{ ansible_user }}"
+    groups:
+      - "docker"
+  become: yes
+
+# pythonからdockerを操作するためのライブラリを導入
+- name: install docker python modules
+  pip:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - "docker-py"
+  become: yes

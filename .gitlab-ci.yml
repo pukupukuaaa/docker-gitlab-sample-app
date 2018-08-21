@@ -2,6 +2,7 @@ stages:
   - build
   - deploy
 
+# Docker イメージのビルド
 build:
   stage: build
   tags:
@@ -12,6 +13,7 @@ build:
     - sudo docker tag myapp:$APP_VERSION $ENV_DOCKER_REGISTRY_HOST:$ENV_DOCKER_REGISTRY_PORT/root/myapp:$APP_VERSION
     - sudo docker push $ENV_DOCKER_REGISTRY_HOST:$ENV_DOCKER_REGISTRY_PORT/root/myapp:$APP_VERSION
 
+# devブランチにマージされたら以下のタスクを実行する
 deploy_dev:
   stage: deploy
   tags:
@@ -23,6 +25,7 @@ deploy_dev:
   only:
     - dev
 
+# masterブランチにマージされたら以下のタスクを実行する
 deploy_production:
   stage: deploy
   tags:
