@@ -1,27 +1,5 @@
 ---
 - name: deploy app
-  hosts: localhost
-  connection: local
-  gather_facts: False
-  tasks:
-    - debug: var=all
-
-    - name: remove exist app container
-      docker_container:
-        name: "{{ all.app_name }}"
-        state: absent
-      become: yes
-
-    - name: launch new app container
-      docker_container:
-        name: "{{ all.app_name }}"
-        image: "{{ all.docker_register_url }}:{{ all.docker_register_port }}/root/myapp:{{ all.app_version }}"
-        state: started
-        restart_policy: always
-        env:
-          PORT: "{{ all.app_port }}"
-          VER: "{{ all.app_version }}"
-          APP_NAME: "{{ all.app_name }}"
-        ports:
-          - "{{ all.app_port }}:{{ all.app_port }}"
-      become: yes
+  hosts: all
+  roles:
+    role: ./roles/deploy

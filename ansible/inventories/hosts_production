@@ -1,0 +1,6 @@
+[prd]
+dev1 ansible_host=127.0.0.1
+
+[prd:vars]
+ansible_user=
+ansible_ssh_private_key_file=
