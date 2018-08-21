@@ -2,4 +2,4 @@
 - name: deploy app
   hosts: all
   roles:
-    role: ./roles/deploy
+    - role: ./roles/deploy
