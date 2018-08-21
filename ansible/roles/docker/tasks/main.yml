@@ -1,6 +1,8 @@
 ---
 - debug: var=ansible_user
 
+- debug: var=ansible_distribution
+
 - name: install docker
   yum:
     name: docker
