@@ -47,6 +47,6 @@ deploy_cypress:
     - ls
     - cd /
     - ls
-    - ./node_modules/cypress/bin/cypress --version
+    #- ./node_modules/cypress/bin/cypress --version
   only:
     - test_cypress
