@@ -44,6 +44,6 @@ deploy_cypress:
     - cypress
   script:
     - env
-    - npx cypress open
+    - ./node_modules/.bin/cypress open
   only:
     - test_cypress
