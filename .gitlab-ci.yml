@@ -45,6 +45,8 @@ deploy_cypress:
   script:
     - pwd
     - ls
+    - cd /
+    - ls
     - ./node_modules/.bin/cypress open
   only:
     - test_cypress
