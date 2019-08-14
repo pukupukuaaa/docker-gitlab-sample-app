@@ -3,15 +3,15 @@ stages:
   - deploy
 
 # Docker イメージのビルド
-build:
-  stage: build
-  tags:
-    - ci
-  script:
-    - sudo docker info
-    - sudo docker build -t myapp:$APP_VERSION ./
-    - sudo docker tag myapp:$APP_VERSION $ENV_DOCKER_REGISTRY_HOST:$ENV_DOCKER_REGISTRY_PORT/root/myapp:$APP_VERSION
-    - sudo docker push $ENV_DOCKER_REGISTRY_HOST:$ENV_DOCKER_REGISTRY_PORT/root/myapp:$APP_VERSION
+# build:
+#   stage: build
+#   tags:
+#     - ci
+#   script:
+#     - sudo docker info
+#     - sudo docker build -t myapp:$APP_VERSION ./
+#     - sudo docker tag myapp:$APP_VERSION $ENV_DOCKER_REGISTRY_HOST:$ENV_DOCKER_REGISTRY_PORT/root/myapp:$APP_VERSION
+#     - sudo docker push $ENV_DOCKER_REGISTRY_HOST:$ENV_DOCKER_REGISTRY_PORT/root/myapp:$APP_VERSION
 
 # devブランチにマージされたら以下のタスクを実行する
 deploy_dev:
@@ -36,3 +36,14 @@ deploy_production:
     - 'cd ./ansible && ansible-playbook -i inventories/hosts_local deploy.yml --extra-vars="{\"all\": { \"app_name\": $CI_PROJECT_NAME-$CI_BUILD_REF_NAME, \"app_version\": $APP_VERSION, \"docker_register_url\": $ENV_DOCKER_REGISTRY_HOST, \"docker_register_port\": $ENV_DOCKER_REGISTRY_PORT, \"app_port\": 3000 }}"'
   only:
     - master
+
+# cypressブランチにマージされたら以下のタスクを実行する
+deploy_cypress:
+  stage: deploy
+  tags:
+    - cypress
+  script:
+    - env
+    - cypress
+  only:
+    - test_cypress
