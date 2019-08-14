@@ -43,7 +43,8 @@ deploy_cypress:
   tags:
     - cypress
   script:
-    - env
+    - pwd
+    - ls
     - ./node_modules/.bin/cypress open
   only:
     - test_cypress
